@@ -1,0 +1,92 @@
+try {
+			if (approveRequest != null) {
+				processApproveRequest(approveRequest, dataSetKey, username);
+			} else if (authorizeRequest != null) {
+				processAuthorizeRequest(authorizeRequest, dataSetKey, username);
+			}
+			
+		} catch (BadRequestException e) {		//HTTP 400
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("{" + "\"messageStatus\":" + e.getMessage() + "}")
+					.build();
+		
+		} catch (DuplicateContractException e) {
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("{" + "\"messageStatus\":" + e.getMessage() + "}")
+					.build();
+			
+		} catch (UserNotFoundException e) {		//HTTP 401
+			return Response.status(Response.Status.UNAUTHORIZED)
+					.entity("{" + "\"messageStatus\":" + e.getMessage() + "}")
+					.build();
+			
+		} catch(ForbiddenException e) {		// HTTP 403
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("{" + "\"messageStatus\":" + e.getMessage() + "}")
+					.build();
+			
+		} catch (NotAllowedException e) {	//HTTP 405
+			return Response.status(Response.Status.METHOD_NOT_ALLOWED)
+					.entity("{" + "\"messageStatus\":" + e.getMessage() + "}")
+					.build();
+			
+		} catch (ConflictException e) {		//HTTP 409
+			return Response.status(Response.Status.CONFLICT)
+					.entity("{" + "\"messageStatus\":" + e.getMessage() + "}")
+					.build();
+			
+		} catch (InternalServerErrorException e) {	//HTTP 500
+			log.error("HTTP Error Status 500/nInternal Server Error Exception/n" + e);
+			code = Constants.MSG_STATUS_500;
+			msg = "An unknown error occurred.  Please try again or contact SMC3 support.";
+			resolution = "";
+			errorStatus = Constants.ERROR_STATUS_FAIL;
+			jsonInString = mapper.writeValueAsString(new MessageStatus(code, msg, resolution, errorStatus));
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("{" + "\"messageStatus\":" + jsonInString + "}")
+					.build();
+			/* This email a trace of the error to us. But return a well format message to the use */
+		} catch(NullPointerException e){
+			log.error(ExceptionUtils.getStackTrace(e));
+			code = Constants.MSG_STATUS_500;
+			msg = "An unknown error occurred.  Please try again or contact SMC3 support.";
+			resolution = "";
+			errorStatus = Constants.ERROR_STATUS_FAIL;
+			jsonInString = mapper.writeValueAsString(new MessageStatus(code, msg, resolution, errorStatus));
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("{" + "\"messageStatus\":" + jsonInString + "}")
+					.build();
+			
+		} catch (Exception e) {
+			String excMsg = e.getMessage();
+			
+			Response.Status[] resp = Response.Status.values();
+			for (Status status : resp) {
+				log.debug("List of HTTP Status String: " + status);
+				if (status == Response.Status.METHOD_NOT_ALLOWED && excMsg.equals(Constants.METHOD_NOT_ALLOWED)) {		// HTTP 405
+					return Response.status(Response.Status.METHOD_NOT_ALLOWED)
+							.entity("{" + "\"messageStatus\":" + "\"Method is not allowed.\"" + "}")
+							.build();
+				} else if (status == Response.Status.CONFLICT && excMsg.equals(Constants.CONFLICT)) {					// HTTP 409
+					return Response.status(Response.Status.CONFLICT)
+							.entity("{" + "\"messageStatus\":" + "\"DataSet already in process.\"" + "}")
+							.build();
+				} else if (status == Response.Status.INTERNAL_SERVER_ERROR && excMsg.equals(Constants.INTERNAL_SERVER_ERROR)){
+					log.error("HTTP Error Status 500/nInternal Server Error Exception/n" + e);
+					code = Constants.MSG_STATUS_500;
+					msg = "An unknown error occurred.  Please try again or contact SMC3 support.";
+					resolution = "";
+					errorStatus = Constants.ERROR_STATUS_FAIL;
+					jsonInString = mapper.writeValueAsString(new MessageStatus(code, msg, resolution, errorStatus));
+					return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+							.entity("{" + "\"messageStatus\":" + jsonInString + "}")
+							.build();
+				}
+			}
+			
+		}
+		
+		return Response.status(Response.Status.OK)
+				.entity("{\n\"messageStatus\":{\n\"message\": \"Update is successful.\", \n\"status\": \"" + Constants.ERROR_STATUS_PASS + "\"" + " } \n }")
+				.build();
+	}
