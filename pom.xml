@@ -1,173 +1,264 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.1.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.fiserv.globalapi</groupId>
-	<artifactId>encrypt-decrypt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>encrypt-decrypt</name>
-	<description>Microservice for encrypt and decrypt payment information
-	</description>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<yaml.synchronizer.version>0.0.1-SNAPSHOT</yaml.synchronizer.version>
-		<swagger.annotation.version>1.5.13</swagger.annotation.version>
-		<client-encryption-version>1.4.1-SNAPSHOT</client-encryption-version>
-		<oauth1-signer-version>1.2.5-SNAPSHOT</oauth1-signer-version>
-		<okhttp2-version>2.7.5</okhttp2-version>
-	</properties>
+    <groupId>com.mastercard.developer</groupId>
+    <artifactId>client-encryption</artifactId>
+    <version>1.4.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <description>Library for Mastercard API compliant payload encryption/decryption</description>
+    <url>https://github.com/Mastercard/client-encryption-java</url>
+    <name>client-encryption</name>
 
+    <properties>
+        <okhttp2-version>2.7.5</okhttp2-version>
+        <okhttp3-version>3.12.0</okhttp3-version>
+        <google-api-client-version>1.23.0</google-api-client-version>
+        <feign-version>9.4.0</feign-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <gpg.signature.skip>true</gpg.signature.skip>
+    </properties>
 
-	<dependencies>
+    <scm>
+        <connection>scm:git:git://github.com/Mastercard/client-encryption-java.git</connection>
+        <developerConnection>scm:git:git@github.com:Mastercard/client-encryption-java.git</developerConnection>
+        <url>https://github.com/Mastercard/client-encryption-java</url>
+    </scm>
 
-		<!-- https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable -->
-		<dependency>
-			<groupId>org.openapitools</groupId>
-			<artifactId>jackson-databind-nullable</artifactId>
-			<version>0.2.0</version>
-		</dependency>
+    <developers>
+        <developer>
+            <organization>Mastercard</organization>
+            <organizationUrl>https://developer.mastercard.com</organizationUrl>
+        </developer>
+    </developers>
 
-		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
-		<dependency>
-			<groupId>com.squareup.okhttp3</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>4.2.2</version>
-		</dependency>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
 
-		<dependency>
-			<groupId>com.squareup.okhttp</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>${okhttp2-version}</version>
-			<scope>provided</scope>
-		</dependency>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh - snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
-		<dependency>
-			<groupId>com.mastercard.developer</groupId>
-			<artifactId>client-encryption</artifactId>
-			<version>${client-encryption-version}</version>
-		</dependency>
+    <dependencies>
+    
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.4.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.mastercard.developer</groupId>
-			<artifactId>oauth1-signer</artifactId>
-			<version>${oauth1-signer-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.5</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.10.1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp3-version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.fiserv.globalapi</groupId>
-			<artifactId>yaml-synchronizer</artifactId>
-			<version>${yaml.synchronizer.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp2-version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-annotations</artifactId>
-			<version>${swagger.annotation.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>${google-api-client-version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>${feign-version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.25.1</version>
+            <scope>test</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+            <scope>test</scope>
+        </dependency>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-remote-resources-plugin</artifactId>
-				<configuration>
-					<resourceBundles>
-						<resourceBundle>com.fiserv.globalapi:yaml-synchronizer:${yaml.synchronizer.version}
-						</resourceBundle>
-					</resourceBundles>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+            <scope>test</scope>
+        </dependency>
 
-				</configuration>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>process</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.0</version>
+            <scope>test</scope>
+        </dependency>
 
-			<plugin>
-				<groupId>org.openapitools</groupId>
-				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>4.2.1</version>
-				<executions>
-					<execution>
-						<id>encrypt-decrypt-models</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${basedir}/target/maven-shared-archive-resources/openapi.yaml
-							</inputSpec>
-							<output>${basedir}/target/generated-sources/encrypt-decryption-services
-							</output>
-							<generatorName>spring</generatorName>
-							<modelPackage>com.fiserv.globalapi.openapi.model</modelPackage>
-							<apiPackage>com.fiserv.globalapi.openapi</apiPackage>
-							<!-- <templateDirectory>src/main/templates/</templateDirectory> -->
-							<configOptions>
-								<sourceFolder>openapi</sourceFolder>
-								<library>spring-mvc</library>
-								<!-- <library>google-api-client</library> -->
-								<interfaceOnly>true</interfaceOnly>
-								<useBeanValidation>true</useBeanValidation>
-								<dateLibrary>java8</dateLibrary>
-								<java8>true</java8>
-								<useTags>true</useTags>
-							</configOptions>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+            <version>2.3</version>
+            <scope>test</scope>
+        </dependency>
 
-		</plugins>
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <version>1.4.0</version>
+            <scope>test</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+            <scope>test</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>1.5.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	</build>
+    <profiles>
+        <profile>
+            <id>java11+</id>
+            <activation>
+                <jdk>[11,)</jdk>
+            </activation>
+            <properties>
+                <!-- The Javadoc generation started to fail with OpenJDK 11.0.2 (11.0.1 was OK) and OpenJDK 12-ea:
+                     "The code being documented uses modules but the packages defined in 
+                     https://docs.oracle.com/javase/7/docs/api/ are in the unnamed module."
+                     See: https://bugs.openjdk.java.net/browse/JDK-8212233 
+                -->
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+            </properties>
+        </profile>
+    </profiles>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${gpg.signature.skip}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-javadoc</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <nodeprecated>true</nodeprecated>
+                            <additionalOptions>-Xdoclint:none</additionalOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
