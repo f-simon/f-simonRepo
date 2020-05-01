@@ -1,0 +1,59 @@
+Creating a branch from master and checking out at the same time
+
+>git checkout -b <name> orgin/master
+where name can be Story-You-Are-Working on i.e. Story-123
+
+>git branch -r      // to see branch
+
+
+git push origin HEAD:feature/STORY-15235_AdapterService_Apple  // pushing to BitBucket
+
+git push origin Story-15234    // push to my local machine
+
+
++++++++++++++++++++++++ new project mtrg   ++++++++++++++++++++
+
+Create a branch from master and check out at the same time
+
+>git checkout -b <your branch name> origin/master   // checkout from master
+
+>git checkout url -b <branchname>                  // checkout from feature branch ie. Haw-19
+
+===
+To merge my code with Dev Branch
+
+> git checkout dev		// switch to dev branch
+> git pull 			// to get latest change in dev
+> git checkout myBranch		// my local branch i.e. haw-19
+> git merge dev			// merge my branch with dev
+
+===
+
+revert a single file 
+> git checkout HEAD --filename
+
+// Get an single file from git stash
+mtrg-mastercard-adapter f7x31us$ git difftool stash@{0}..HEAD -- ApplicationController.java
+
+
+// Check for this problem
+ML-C02Z21J2LVDL:mtrg-discover-adapter f7x31us$ git checkout dev
+Switched to branch 'dev'
+ML-C02Z21J2LVDL:mtrg-discover-adapter f7x31us$ git pull
+remote: Counting objects: 84, done.
+remote: Compressing objects: 100% (71/71), done.
+remote: Total 84 (delta 32), reused 0 (delta 0)
+Unpacking objects: 100% (84/84), done.
+From ssh://escmstash.1dc.com:7999/mtrg/mtrg-discover-adapter
+   1b6e9cb..fef76e2  dev         -> origin/dev
+   d1e8087..5f62d4b  feature/HAW-282-discover-project-set-up-and-connectivity -> origin/feature/HAW-282-discover-project-set-up-and-connectivity
+   4cc077c..02b7610  integration -> origin/integration
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> dev 
