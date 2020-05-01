@@ -1,0 +1,29 @@
+mdes:
+  keystore:
+    path: '/Users/f7x31us/mdes/encrypt-decrypt/src/main/resources/alexcleo-sandbox.p12'
+    keyAlias: 'alexcleo'
+    keyPassword: 'mset4Me?.'
+    certificatePath: '/Users/f7x31us/mdes/encrypt-decrypt/src/main/resources/PublicKey-Encrypt.crt'
+    privateKeyFilePath: '/Users/f7x31us/mdes/encrypt-decrypt/src/main/resources/PrivateKey-Decrypt.pem'
+  oauth:
+    consumerKey: '1ncDBl-OyczSs5XThP-2ODuWJpp_Jdb5hqcPQsqL5e33e0a7!6bc58cb492414ae89ccf799916e3a6640000000000000000'
+    uriToken: '/digitization/static/1/0/tokenize'
+#    uriGetAsset: '/assets/static/1/0/asset/{AssetId}'
+    uriSuspend: '/digitization/static/1/0/suspend'
+    uriUnSuspend: '/digitization/static/1/0/unsuspend'
+    uriDelete: '/digitization/static/1/0/delete'
+    uriGetTaskStatus: '/digitization/static/1/0/getTaskStatus'
+    uriTransact: '/remotetransaction/static/1/0/transact'
+    uriGetToken: '/digitization/static/1/0/getToken'
+    uriSearchTokens: '/digitization/static/1/0/searchTokens'
+    uriNotifyTokenUpdated: '/digitization/static/1/0/notifyTokenUpdated'
+    charset: 'StandardCharsets.UTF_8'
+  get:  
+    uriGetAsset: '/assets/static/1/0/asset/{AssetId}'
+#   uriGetToken: '/digitization/static/1/0/getToken'
+    
+#    charset: 'UTF_8'
+server:
+  port: 5801
+  
+  
