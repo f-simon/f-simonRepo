@@ -1,0 +1,10 @@
+1 Commit code
+2.Pull request to merge code with dev
+3.At Bitbucket
+  1. Create a pull request on the left and right side
+  2. Select my branch (i.e. HAW-152)
+  3. Select Project (i.e. dev)
+  4. Select dev branch and click continue
+  5. Put comment
+  6. Choose review (Vinit  or ZHENG - Rocky)
+  7. Then create
